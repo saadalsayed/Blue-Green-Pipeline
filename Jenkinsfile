@@ -17,9 +17,7 @@ pipeline {
          }         
          stage('Upload to AWS') {
               steps {
-                  withEnv(["AWS_ACCESS_KEY_ID=${env.AWS_ACCESS_KEY_ID}",
-                 "AWS_SECRET_ACCESS_KEY=${env.AWS_SECRET_ACCESS_KEY}",
-                 "AWS_DEFAULT_REGION=${env.AWS_DEFAULT_REGION}"]) {
+                 withAWS(region: 'us-east-2', credentials: 'Devops') {
                   sh 'echo "Uploading content with AWS creds"'
                       s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'static-jenkins-pipeline')
                   }
