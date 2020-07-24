@@ -17,7 +17,7 @@ pipeline {
          }         
          stage('Upload to AWS') {
               steps {
-                 withCredentials([usernamePassword(credentialsId: 'AKIARJOB5OAZCBFP3MO3', usernameVariable: 'Devops', passwordVariable: 'P@$$w0rd')]) {
+                 withAWS(region:'us-east-2',credentials:'github')  {
                   sh 'echo "Uploading content with AWS creds"'
                       s3Upload(pathStyleAccessEnabled: true, payloadSigningEnabled: true, file:'index.html', bucket:'static-jenkins-pipeline')
                   }
